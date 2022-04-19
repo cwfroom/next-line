@@ -2,7 +2,9 @@
   "name": "next-line",
 	"displayName": "next-line",
 	"description": "Jump to next line",
+	"repository": "https://github.com/cwfroom/next-line",
 	"version": "0.0.1",
+	"publisher": "wenfei-cao",
 	"engines": {
 		"vscode": "^1.66.0"
 	},
