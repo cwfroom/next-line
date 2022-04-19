@@ -37,6 +37,11 @@ export async function activate(context: vscode.ExtensionContext) {
 						by: 'character'
 					});
 				}
+				await vscode.commands.executeCommand('editorScroll', {
+					to: 'down',
+					by: 'wrappedLine',
+					value: lineOffset
+				});
 			}
 		}
 	});
