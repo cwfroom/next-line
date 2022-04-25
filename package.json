@@ -12,7 +12,8 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:extension.nextLine"
+        "onCommand:extension.nextLine",
+		"onCommand:extension.deleteUntil"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -27,6 +28,12 @@
 				"command": "extension.nextLine",
 				"key": "ctrl+alt+f",
 				"mac": "shift+cmd+f",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "extension.deleteUntil",
+				"key": "ctrl+alt+d",
+				"mac": "shift+cmd+d",
 				"when": "editorTextFocus"
 			}
 		]
