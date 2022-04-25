@@ -75,6 +75,26 @@ async function nextLine() {
 	}
 }
 
+async function searchThesaurus () {
+	const activeEditor = vscode.window.activeTextEditor;
+	if (activeEditor) {
+		const selectedText = activeEditor.document.getText(activeEditor.selection);
+		if (selectedText.length > 0) {
+			await vscode.env.openExternal(vscode.Uri.parse(`https://google.com/search?q=${selectedText} 類語`));
+		}
+	}
+}
+
+async function searchChinese () {
+	const activeEditor = vscode.window.activeTextEditor;
+	if (activeEditor) {
+		const selectedText = activeEditor.document.getText(activeEditor.selection);
+		if (selectedText.length > 0) {
+			await vscode.env.openExternal(vscode.Uri.parse(`https://google.com/search?q=${selectedText} 中文`));
+		}
+	}
+}
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -83,8 +103,12 @@ export function activate(context: vscode.ExtensionContext) {
 	// The commandId parameter must match the command field in package.json
 	let deleteUntilDisposable = vscode.commands.registerCommand('extension.deleteUntil', deleteUntil);
 	let nextLineDisposable = vscode.commands.registerCommand('extension.nextLine', nextLine);
+	let searchThesaurusDisposable = vscode.commands.registerCommand('extension.searchThesaurus', searchThesaurus);
+	let searchChineseDisposable = vscode.commands.registerCommand('extension.searchChinese', searchChinese);
 	context.subscriptions.push(deleteUntilDisposable);
 	context.subscriptions.push(nextLineDisposable);
+	context.subscriptions.push(searchThesaurusDisposable);
+	context.subscriptions.push(searchChineseDisposable);
 }
 
 // this method is called when your extension is deactivated

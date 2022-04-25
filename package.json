@@ -13,7 +13,9 @@
 	],
 	"activationEvents": [
         "onCommand:extension.nextLine",
-		"onCommand:extension.deleteUntil"
+		"onCommand:extension.deleteUntil",
+		"onCommand:extension.searchThesaurus",
+		"onCommand:extension.searchChinese"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -34,6 +36,18 @@
 				"command": "extension.deleteUntil",
 				"key": "ctrl+alt+d",
 				"mac": "shift+cmd+d",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "extension.searchThesaurus",
+				"key": "ctrl+alt+l",
+				"mac": "shift+cmd+l",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "extension.searchChinese",
+				"key": "ctrl+alt+c",
+				"mac": "shift+cmd+c",
 				"when": "editorTextFocus"
 			}
 		]
