@@ -40,8 +40,8 @@
 			},
 			{
 				"command": "extension.searchThesaurus",
-				"key": "ctrl+alt+l",
-				"mac": "shift+cmd+l",
+				"key": "ctrl+alt+r",
+				"mac": "shift+cmd+r",
 				"when": "editorTextFocus"
 			},
 			{
