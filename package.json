@@ -28,25 +28,25 @@
 		"keybindings": [
 			{
 				"command": "extension.nextLine",
-				"key": "ctrl+alt+f",
+				"key": "ctrl+shift+f",
 				"mac": "shift+cmd+f",
 				"when": "editorTextFocus"
 			},
 			{
 				"command": "extension.deleteUntil",
-				"key": "ctrl+alt+d",
+				"key": "ctrl+shift+d",
 				"mac": "shift+cmd+d",
 				"when": "editorTextFocus"
 			},
 			{
 				"command": "extension.searchThesaurus",
-				"key": "ctrl+alt+r",
+				"key": "ctrl+shift+r",
 				"mac": "shift+cmd+r",
 				"when": "editorTextFocus"
 			},
 			{
 				"command": "extension.searchChinese",
-				"key": "ctrl+alt+c",
+				"key": "ctrl+shift+c",
 				"mac": "shift+cmd+c",
 				"when": "editorTextFocus"
 			}
