@@ -60,7 +60,7 @@ async function nextLine() {
 				by: 'wrappedLine',
 			});
 			const lineAfterMove = activeEditor.document.lineAt(cursorPosition.line + lineOffset);
-			if (lineAfterMove.text[0] === '「') {
+			if (lineAfterMove.text[0] === '「' || lineAfterMove.text[0] === '（') {
 				await vscode.commands.executeCommand('cursorMove', {
 					to: 'right',
 					by: 'character'
@@ -75,24 +75,39 @@ async function nextLine() {
 	}
 }
 
-async function searchThesaurus () {
+async function launchSearch (mode: string) {
 	const activeEditor = vscode.window.activeTextEditor;
 	if (activeEditor) {
 		const selectedText = activeEditor.document.getText(activeEditor.selection);
+		let searchURL = '';
+		switch (mode) {
+			case 'vanilla':
+			case 'default':
+				searchURL = `https://google.com/search?q=${selectedText}`;
+				break;
+			case 'thesaurus':
+				searchURL = `https://google.com/search?q=${selectedText} 類語`;
+				break;
+			case 'chinese':
+				searchURL = `https://google.com/search?q=${selectedText} 中文`;
+				break;
+		}
 		if (selectedText.length > 0) {
-			await vscode.env.openExternal(vscode.Uri.parse(`https://google.com/search?q=${selectedText} 類語`));
+			await vscode.env.openExternal(vscode.Uri.parse(searchURL));
 		}
 	}
 }
 
+async function searchThesaurus () {
+	launchSearch('thesaurus');
+}
+
 async function searchChinese () {
-	const activeEditor = vscode.window.activeTextEditor;
-	if (activeEditor) {
-		const selectedText = activeEditor.document.getText(activeEditor.selection);
-		if (selectedText.length > 0) {
-			await vscode.env.openExternal(vscode.Uri.parse(`https://google.com/search?q=${selectedText} 中文`));
-		}
-	}
+	launchSearch('chinese');
+}
+
+async function searchVanilla () {
+	launchSearch('vanilla');
 }
 
 // this method is called when your extension is activated
@@ -105,10 +120,12 @@ export function activate(context: vscode.ExtensionContext) {
 	let nextLineDisposable = vscode.commands.registerCommand('extension.nextLine', nextLine);
 	let searchThesaurusDisposable = vscode.commands.registerCommand('extension.searchThesaurus', searchThesaurus);
 	let searchChineseDisposable = vscode.commands.registerCommand('extension.searchChinese', searchChinese);
+	let searchVanillaDisposable = vscode.commands.registerCommand('extension.searchVanilla', searchVanilla);
 	context.subscriptions.push(deleteUntilDisposable);
 	context.subscriptions.push(nextLineDisposable);
 	context.subscriptions.push(searchThesaurusDisposable);
 	context.subscriptions.push(searchChineseDisposable);
+	context.subscriptions.push(searchVanillaDisposable);
 }
 
 // this method is called when your extension is deactivated

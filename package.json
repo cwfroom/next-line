@@ -15,7 +15,8 @@
         "onCommand:extension.nextLine",
 		"onCommand:extension.deleteUntil",
 		"onCommand:extension.searchThesaurus",
-		"onCommand:extension.searchChinese"
+		"onCommand:extension.searchChinese",
+		"onCommand:extension.searchVanilla"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -48,6 +49,12 @@
 				"command": "extension.searchChinese",
 				"key": "ctrl+shift+c",
 				"mac": "shift+cmd+c",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "extension.searchVanilla",
+				"key": "ctrl+shift+g",
+				"mac": "shift+cmd+g",
 				"when": "editorTextFocus"
 			}
 		]
