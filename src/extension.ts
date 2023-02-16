@@ -14,6 +14,8 @@ const terminateSymbols = [
 	"）"
 ];
 
+let progressStatusBarItem : vscode.StatusBarItem;
+
 function deleteUntil () {
 	const activeEditor = vscode.window.activeTextEditor;
 	if (activeEditor) {
@@ -110,6 +112,39 @@ async function searchVanilla () {
 	launchSearch('vanilla');
 }
 
+function ignoreCommented (countUntil: number) {
+	const activeEditor = vscode.window.activeTextEditor;
+	if (activeEditor) {
+		let lineCount = 0;
+		const allLines = activeEditor.document.getText().split('\n');
+		for (let i = 0; i < countUntil; i++) {
+			if (allLines[i].length > 0 && allLines[i][0] !== '/' && allLines[i][0] !== '@') {
+				lineCount++;
+			}
+		}
+		return lineCount;
+	}else {
+		return 0;
+	}
+}
+
+function updateProgressStatusBar () {
+	const activeEditor = vscode.window.activeTextEditor;
+	if (activeEditor) {
+		const cursorPosition = activeEditor.selection.active;
+		const currentLine = ignoreCommented(cursorPosition.line + 1);
+		const totalLine = ignoreCommented(activeEditor.document.lineCount);
+		let percentage = 0;
+		if (currentLine !== 0 && totalLine !== 0) {
+			percentage = (currentLine / totalLine) * 100;
+		}
+		progressStatusBarItem.text = `${currentLine}/${totalLine} ${percentage.toFixed(2)}%`;
+		progressStatusBarItem.show();
+	}else{
+		progressStatusBarItem.hide();
+	}
+}
+
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
@@ -126,6 +161,11 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(searchThesaurusDisposable);
 	context.subscriptions.push(searchChineseDisposable);
 	context.subscriptions.push(searchVanillaDisposable);
+
+	progressStatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 1000);
+	context.subscriptions.push(vscode.window.onDidChangeActiveTextEditor(updateProgressStatusBar));
+	context.subscriptions.push(vscode.window.onDidChangeTextEditorSelection(updateProgressStatusBar));
+	updateProgressStatusBar();
 }
 
 // this method is called when your extension is deactivated
