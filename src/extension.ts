@@ -119,15 +119,23 @@ function ignoreCommented (countUntil: number) {
 	const activeEditor = vscode.window.activeTextEditor;
 	if (activeEditor) {
 		let lineCount = 0;
+		let charCount = 0;
 		const allLines = activeEditor.document.getText().split(/\r?\n/g);
 		for (let i = 0; i < countUntil; i++) {
 			if (allLines[i].length > 0 && allLines[i][0] !== '/' && allLines[i][0] !== '@') {
 				lineCount++;
+				charCount += allLines[i].length;
 			}
 		}
-		return lineCount;
+		return {
+				'lineCount': lineCount,
+				'charCount': charCount
+			};
 	}else {
-		return 0;
+		return {
+			'lineCount': 0,
+			'charCount': 0
+		};
 	}
 }
 
@@ -135,13 +143,18 @@ function updateProgressStatusBar () {
 	const activeEditor = vscode.window.activeTextEditor;
 	if (activeEditor) {
 		const cursorPosition = activeEditor.selection.active;
-		const currentLine = ignoreCommented(cursorPosition.line + 1);
-		const totalLine = ignoreCommented(activeEditor.document.lineCount);
+		const currentCount = ignoreCommented(cursorPosition.line + 1);
+		const currentLineCount = currentCount['lineCount'];
+		const currentCharCount = currentCount['charCount'];
+		const totalCount = ignoreCommented(activeEditor.document.lineCount);
+		const totalLineCount = totalCount['lineCount'];
+		const totalCharCount = totalCount['charCount'];
+
 		let percentage = 0;
-		if (currentLine !== 0 && totalLine !== 0) {
-			percentage = (currentLine / totalLine) * 100;
+		if (currentLineCount !== 0 && totalLineCount !== 0) {
+			percentage = (currentLineCount / totalLineCount) * 100;
 		}
-		progressStatusBarItem.text = `${currentLine}/${totalLine} ${percentage.toFixed(2)}%`;
+		progressStatusBarItem.text = `${currentLineCount}/${totalLineCount} ${currentCharCount}/${totalCharCount} ${percentage.toFixed(2)}%`;
 		progressStatusBarItem.show();
 	}else{
 		progressStatusBarItem.hide();
