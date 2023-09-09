@@ -30,11 +30,14 @@ function deleteUntil () {
 				break;
 			}
 		}
-		var endPosition = cursorPosition.with(cursorPosition.line, endChar);
-		var removeSelection = new vscode.Selection(cursorPosition,endPosition);
-		activeEditor.edit( builder => {
-		builder.delete(removeSelection);
-		});
+		//Only delete when terminate symbol is found
+		if (endChar !== activeLine.text.length - 1) {
+			var endPosition = cursorPosition.with(cursorPosition.line, endChar);
+			var removeSelection = new vscode.Selection(cursorPosition,endPosition);
+			activeEditor.edit( builder => {
+				builder.delete(removeSelection);
+			});
+		}
 	}
 }
 
