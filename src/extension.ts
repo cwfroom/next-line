@@ -22,22 +22,22 @@ function deleteUntil () {
 		const cursorPosition = activeEditor.selection.active;
 		const activeLine = activeEditor.document.lineAt(cursorPosition.line);
 		if (activeLine.text.length === 0) {return; };
-		let endChar = activeLine.text.length - 1;
-		// Iterate until passing one of the terminate symbols
-		for (endChar; endChar > cursorPosition.character; endChar--) {
-			if (!terminateSymbols.includes(activeLine.text.charAt(endChar))) {
-				endChar++;
+		// Don't delete when cursor is at line end
+		if (cursorPosition.character === activeLine.text.length) {return; };
+
+		let endCharPos = activeLine.text.length - 1;
+		// Iterate backwards until passing one of the terminate symbols
+		for (endCharPos; endCharPos > cursorPosition.character; endCharPos--) {
+			if (!terminateSymbols.includes(activeLine.text.charAt(endCharPos))) {
+				endCharPos++;
 				break;
 			}
 		}
-		//Only delete when terminate symbol is found
-		if (endChar !== activeLine.text.length - 1) {
-			var endPosition = cursorPosition.with(cursorPosition.line, endChar);
-			var removeSelection = new vscode.Selection(cursorPosition,endPosition);
-			activeEditor.edit( builder => {
-				builder.delete(removeSelection);
-			});
-		}
+		var endPosition = cursorPosition.with(cursorPosition.line, endCharPos);
+		var removeSelection = new vscode.Selection(cursorPosition,endPosition);
+		activeEditor.edit( builder => {
+			builder.delete(removeSelection);
+		});
 	}
 }
 
