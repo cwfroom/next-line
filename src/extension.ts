@@ -14,6 +14,13 @@ const terminateSymbols = [
 	"）"
 ];
 
+const leadingSymbols = [
+	"（",
+	"「",
+	"…",
+	"—"
+];
+
 let progressStatusBarItem : vscode.StatusBarItem;
 
 function deleteUntil () {
@@ -65,10 +72,18 @@ async function nextLine() {
 				by: 'wrappedLine',
 			});
 			const lineAfterMove = activeEditor.document.lineAt(cursorPosition.line + lineOffset);
-			if (lineAfterMove.text[0] === '「' || lineAfterMove.text[0] === '（') {
+			// Ignore certain leading symbols
+			let leadingIndex = 0;
+			for (leadingIndex; leadingIndex < lineAfterMove.text.length; leadingIndex++) {
+				if (!leadingSymbols.includes(lineAfterMove.text[leadingIndex])) {
+					break;
+				}
+			}
+			if (leadingIndex > 0) {
 				await vscode.commands.executeCommand('cursorMove', {
 					to: 'right',
-					by: 'character'
+					by: 'character',
+					value: leadingIndex
 				});
 			}
 			await vscode.commands.executeCommand('editorScroll', {
