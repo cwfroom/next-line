@@ -1,84 +1,83 @@
 {
   "name": "next-line",
-	"displayName": "next-line",
-	"description": "Jump to next line",
-	"repository": "https://github.com/cwfroom/next-line",
-	"version": "0.0.4",
-	"publisher": "wenfei-cao",
-	"engines": {
-		"vscode": "^1.66.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"*",
-        "onCommand:extension.nextLine",
-		"onCommand:extension.deleteUntil",
-		"onCommand:extension.searchThesaurus",
-		"onCommand:extension.searchChinese",
-		"onCommand:extension.searchVanilla"
-	],
-	"main": "./out/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "next-line.helloWorld",
-				"title": "Next Line"
-			}
-		],
-		"keybindings": [
-			{
-				"command": "extension.nextLine",
-				"key": "ctrl+shift+f",
-				"mac": "shift+cmd+f",
-				"when": "editorTextFocus"
-			},
-			{
-				"command": "extension.deleteUntil",
-				"key": "ctrl+shift+d",
-				"mac": "shift+cmd+d",
-				"when": "editorTextFocus"
-			},
-			{
-				"command": "extension.searchThesaurus",
-				"key": "ctrl+shift+r",
-				"mac": "shift+cmd+r",
-				"when": "editorTextFocus"
-			},
-			{
-				"command": "extension.searchChinese",
-				"key": "ctrl+shift+c",
-				"mac": "shift+cmd+c",
-				"when": "editorTextFocus"
-			},
-			{
-				"command": "extension.searchVanilla",
-				"key": "ctrl+shift+g",
-				"mac": "shift+cmd+g",
-				"when": "editorTextFocus"
-			}
-		]
-	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile && npm run lint",
-		"lint": "eslint src --ext ts",
-		"test": "node ./out/test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/vscode": "^1.94.0",
-		"@types/glob": "^8.1.0",
-		"@types/mocha": "^10.0.9",
-		"@types/node": "22.x",
-		"@typescript-eslint/eslint-plugin": "^8.8.1",
-		"@typescript-eslint/parser": "^8.8.1",
-		"eslint": "^9.0.0",
-		"glob": "^11.0.0",
-		"mocha": "^10.7.3",
-		"typescript": "^5.6.3",
-		"@vscode/test-electron": "^2.4.1"
-	}
+  "displayName": "next-line",
+  "description": "Jump to next line",
+  "repository": "https://github.com/cwfroom/next-line",
+  "version": "0.0.4",
+  "publisher": "wenfei-cao",
+  "engines": {
+    "vscode": "^1.94.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*",
+    "onCommand:extension.nextLine",
+    "onCommand:extension.deleteUntil",
+    "onCommand:extension.searchThesaurus",
+    "onCommand:extension.searchChinese",
+    "onCommand:extension.searchVanilla"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "next-line.helloWorld",
+        "title": "Next Line"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "extension.nextLine",
+        "key": "ctrl+shift+f",
+        "mac": "shift+cmd+f",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.deleteUntil",
+        "key": "ctrl+shift+d",
+        "mac": "shift+cmd+d",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.searchThesaurus",
+        "key": "ctrl+shift+r",
+        "mac": "shift+cmd+r",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.searchChinese",
+        "key": "ctrl+shift+c",
+        "mac": "shift+cmd+c",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "extension.searchVanilla",
+        "key": "ctrl+shift+g",
+        "mac": "shift+cmd+g",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.9",
+    "@types/node": "22.x",
+    "@types/vscode": "^1.94.0",
+    "@typescript-eslint/eslint-plugin": "^8.8.1",
+    "@typescript-eslint/parser": "^8.8.1",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.0.0",
+    "glob": "^11.0.0",
+    "mocha": "^10.7.3",
+    "typescript": "^5.6.3"
+  }
 }
