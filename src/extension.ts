@@ -137,7 +137,7 @@ function ignoreCommented (countUntil: number) {
 		let charCount = 0;
 		const allLines = activeEditor.document.getText().split(/\r?\n/g);
 		for (let i = 0; i < countUntil; i++) {
-			if (allLines[i].length > 0 && allLines[i][0] !== '/' && allLines[i][0] !== '@') {
+			if (allLines[i].length > 0 && allLines[i][0] !== '/' && allLines[i][0] !== '@' && allLines[i][0] !== ';') {
 				lineCount++;
 				charCount += allLines[i].length;
 			}
